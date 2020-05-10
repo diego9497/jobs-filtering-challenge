@@ -2,6 +2,7 @@ import React from "react";
 import JobCard from "../JobCard";
 import { Container } from "./styles";
 const Jobs = ({ jobs, addFilter }) => {
+  console.log("Renderizado jobs");
   return (
     <Container>
       {jobs ? (

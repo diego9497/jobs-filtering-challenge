@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import JobsComponent from "../components/Jobs";
 import data from "../../data.json";
 
@@ -10,8 +10,7 @@ const Jobs = ({ filters, addFilter }) => {
   }, []);
 
   useEffect(() => {
-    const filterdJobs = filterData(filters);
-    setJobs(filterdJobs);
+    setJobs(filterData(filters));
   }, [filters]);
 
   const filterData = (filters) => {
@@ -36,7 +35,10 @@ const Jobs = ({ filters, addFilter }) => {
       return inLevel || inRole || inLang || inTool;
     });
   };
-
-  return <JobsComponent jobs={jobs} addFilter={addFilter} />;
+  const ComponentMemoized = useMemo(
+    () => <JobsComponent jobs={jobs} addFilter={addFilter} />,
+    [jobs]
+  );
+  return ComponentMemoized;
 };
 export default Jobs;
